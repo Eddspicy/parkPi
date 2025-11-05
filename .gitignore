@@ -2,4 +2,4 @@
 __pycache__/
 *.pyc
 .vscode/
-uniqueIDs.txt
+valid_uids.txt'
