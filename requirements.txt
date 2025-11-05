@@ -1,8 +1,6 @@
-Adafruit-Blinka==8.67.0
 Adafruit-Blinka-Raspberry-Pi5-Neopixel==1.0.0rc2
 adafruit-circuitpython-busdevice==5.2.14
 adafruit-circuitpython-connectionmanager==3.1.6
-adafruit-circuitpython-hx711==1.1.0
 adafruit-circuitpython-pn532==2.4.6
 adafruit-circuitpython-requests==4.1.15
 adafruit-circuitpython-typing==1.12.3
@@ -11,6 +9,7 @@ Adafruit-PureIO==1.1.11
 binho-host-adapter==0.1.6
 colorzero==2.0
 gpiozero==2.0.1
+hx711==1.1.2.3
 lgpio==0.2.2.0
 pyftdi==0.57.1
 pyserial==3.5
