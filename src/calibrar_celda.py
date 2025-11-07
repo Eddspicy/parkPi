@@ -50,7 +50,7 @@ try:
 
     # 4. Cálculo
     
-    lectura_neta = lectura_con_peso - lectura_sin_peso
+    lectura_neta = abs(lectura_con_peso - lectura_sin_peso)
     if lectura_neta == 0:
         print("[ERROR] La lectura con peso y sin peso es idéntica. Verifica la celda.")
         sys.exit()

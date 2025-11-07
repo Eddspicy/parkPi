@@ -98,23 +98,40 @@ class CeldaDeCarga:
         print(f"Factor de escala establecido en: {factor}")
 
     def obtener_peso(self):
+        """Devuelve el peso actual en gramos, promediando 5 lecturas."""
         if self.h is None: return 0.0
         try:
-            lectura_neta = self._read_raw_value() - self.offset
-            gramos = lectura_neta / self.factor_escala
-            if gramos < 0: gramos = 0.0
+            lecturas = [self._read_raw_value() for _ in range(5)]
+            lectura_neta = (sum(lecturas) / len(lecturas)) - self.offset
+            
+            if self.factor_escala == 0: return 0.0
+            
+            # --- MODIFICADO V23 ---
+            # ¡Usamos abs() para ignorar la inversión!
+            gramos = abs(lectura_neta / self.factor_escala)
+            # ---------------------
+
+            # La lógica de 'gramos < 0' ya no es fiable
+            # Usamos un umbral pequeño de 'lectura_neta'
+            if abs(lectura_neta) < (self.factor_escala * 0.5): # Si es menos de medio gramo
+                 return 0.0
+            
             return gramos
         except Exception as e:
             print(f"Error al leer el peso: {e}")
             return 0.0
 
     def obtener_lectura_cruda(self):
+        """Devuelve la lectura cruda (promediada), menos el offset."""
         if self.h is None: return 0
         try:
-            # Leemos 5 veces y promediamos para reducir ruido
             lecturas = [self._read_raw_value() for _ in range(5)]
             valor_neto = (sum(lecturas) / len(lecturas)) - self.offset
-            return valor_neto
+            
+            # --- MODIFICADO V23 ---
+            # ¡Usamos abs() para ignorar la inversión!
+            return abs(valor_neto)
+            # ---------------------
         except Exception as e:
             print(f"Error al leer valor en crudo: {e}")
             return 0
